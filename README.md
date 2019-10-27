@@ -14,7 +14,7 @@ FANN library: http://leenissen.dk/fann/wp/ https://github.com/libfann/fann
 
 # Examples
 
-* example_denoise_autoenc - example of creating Denoising autoencoder. 
+* example_denoise_autoenc - example of creating denoising autoencoder. 
 The network is trained to restore noised sine functions of various amplitude and frequency.
 Press Space to generate new test.
 
