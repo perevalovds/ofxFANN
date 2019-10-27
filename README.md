@@ -18,6 +18,7 @@ FANN library: http://leenissen.dk/fann/wp/ https://github.com/libfann/fann
 The network is trained to restore noised sine functions of various amplitude and frequency.
 Press Space to generate new test.
 
+![example_denoise_autoenc](https://raw.githubusercontent.com/perevalovds/ofxFANN/master/docs/images/denoising_autoencoder.png)
 
 # Requirements
 
