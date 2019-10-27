@@ -6,9 +6,11 @@ FANN library: http://leenissen.dk/fann/wp/ https://github.com/libfann/fann
 
 # Features
  
-* train multiple-layered netoworks in realtime.
+* Train multiple-layered netoworks in realtime.
 
-* run trained networks.
+* Run trained networks.
+
+* Currently ofxFANN uses only float FANN computations. Double and fixed variants are currently not supported.
 
 # Requirements
 
