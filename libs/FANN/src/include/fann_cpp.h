@@ -687,6 +687,52 @@ namespace FANN
             set_train_data(data);
         }
 
+		/* set_train_data vector-based implementation (perevalovds)
+		*/
+
+		void set_train_data(vector<vector<float> > &inputs, vector<vector<float> > &outputs)
+		{
+			if (inputs.empty() || inputs.size() != outputs.size() 
+				|| inputs[0].empty() || outputs[0].empty()) {
+				//TODO Warn error in a "standard" FANN way
+				cout << "FANN error: bad data for set_train_data" << endl;
+				return;
+			}
+			unsigned int num_data = inputs.size();
+			unsigned int num_input = inputs[0].size();
+			unsigned int num_output = outputs[0].size();
+				
+			// Uses the allocation method used in fann
+			struct fann_train_data *data =
+				(struct fann_train_data *)malloc(sizeof(struct fann_train_data));
+			data->input = (fann_type **)calloc(num_data, sizeof(fann_type *));
+			data->output = (fann_type **)calloc(num_data, sizeof(fann_type *));
+
+			data->num_data = num_data;
+			data->num_input = num_input;
+			data->num_output = num_output;
+
+			fann_type *data_input = (fann_type *)calloc(num_input*num_data, sizeof(fann_type));
+			fann_type *data_output = (fann_type *)calloc(num_output*num_data, sizeof(fann_type));
+
+			for (unsigned int i = 0; i < num_data; ++i)
+			{
+				data->input[i] = data_input;
+				data_input += num_input;
+				for (unsigned int j = 0; j < num_input; ++j)
+				{
+					data->input[i][j] = inputs[i][j];
+				}
+				data->output[i] = data_output;
+				data_output += num_output;
+				for (unsigned int j = 0; j < num_output; ++j)
+				{
+					data->output[i][j] = outputs[i][j];
+				}
+			}
+			set_train_data(data);
+		}
+
 private:
         /* Set the training data to the struct fann_training_data pointer.
             The struct has to be allocated with malloc to be compatible
@@ -979,6 +1025,15 @@ public:
             ann = fann_create_standard_array(num_layers, layers);
             return (ann != NULL);
         }
+
+		/* create_standard_array with vector-size (perevalovds)
+		*/
+		bool create_standard_array(const vector<unsigned int> &layers_sizes)
+		{
+			destroy();
+			ann = fann_create_standard_array(layers_sizes.size(), &layers_sizes[0]);
+			return (ann != NULL);
+		}
 
         /* Method: create_sparse
 
