@@ -30,12 +30,24 @@ struct ofxFANN {
 	bool setup_fully_connected_network(int input_dim, int output_dim, string hidden_sizes);
 	bool setup_fully_connected_network(const vector<int> &layers_sizes);
 
+	//training with vectors of vectors of inputs and outputs
 	bool train(vector<vector<float> > &inputs, vector<vector<float> > &outputs, 
 		ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
+
+	//training with 2d arrays of inputs and outputs
+	//(TODO create faster training without copying to FANN)
+	bool train(vector<float> &inputs, vector<float> &outputs, int n_examples,
+		ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
+
 
 	//TODO void train_epoch
 	//TODO void train_incremental  //dynamic training  net.train
 
+	//prediction with network, fastest - without memory copying
+	float* predict(float *input);	//we shouldn't clear returned array
+	
+	//comfortable, but slower due memory copying
+	void predict(float *input, vector<float> &predicted);	
 	vector<float> predict(vector<float> &input);
 
 	int input_dim = 0;
@@ -45,3 +57,8 @@ struct ofxFANN {
 
 };
 
+
+struct ofxFANNUtils {
+	//mean squared error
+	static float mse(float *a, float *b, int n);
+};
