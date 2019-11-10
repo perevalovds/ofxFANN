@@ -32,12 +32,12 @@ struct ofxFANN {
 
 	//training with vectors of vectors of inputs and outputs
 	bool train(vector<vector<float> > &inputs, vector<vector<float> > &outputs, 
-		ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
+		const ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
 
 	//training with 2d arrays of inputs and outputs
 	//(TODO create faster training without copying to FANN)
 	bool train(vector<float> &inputs, vector<float> &outputs, int n_examples,
-		ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
+		const ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
 
 
 	//TODO void train_epoch

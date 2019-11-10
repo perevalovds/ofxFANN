@@ -40,7 +40,7 @@ bool ofxFANN::setup_fully_connected_network(const vector<int> &layers_sizes) {
 
 //--------------------------------------------------------------------------------
 bool ofxFANN::train(vector<float> &inputs, vector<float> &outputs, int n_examples,
-	ofxFANN_MLP_Train_Param &params) {
+	const ofxFANN_MLP_Train_Param &params) {
 	if (inputs.size() != n_examples * input_dim
 		|| outputs.size() != n_examples * output_dim) {
 		return false;
@@ -58,7 +58,7 @@ bool ofxFANN::train(vector<float> &inputs, vector<float> &outputs, int n_example
 
 //--------------------------------------------------------------------------------
 bool ofxFANN::train(vector<vector<float> > &inputs, vector<vector<float> > &outputs,
-	ofxFANN_MLP_Train_Param &params) {
+	const ofxFANN_MLP_Train_Param &params) {
 
 	if (inputs.empty() || inputs.size() != outputs.size() 
 		|| inputs[0].size() != input_dim || outputs[0].size() != output_dim) {
