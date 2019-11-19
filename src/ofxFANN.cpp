@@ -1,5 +1,6 @@
 #include "ofxFANN.h"
 
+
 //--------------------------------------------------------------------------------
 bool ofxFANN::setup_fully_connected_network(int input_dim, int output_dim, string hidden_sizes) {
 	vector<string> items = ofSplitString(hidden_sizes, " ");
@@ -36,6 +37,17 @@ bool ofxFANN::setup_fully_connected_network(const vector<int> &layers_sizes) {
 	net.create_standard_array(sizes);
 
 	return true;
+}
+
+//--------------------------------------------------------------------------------
+bool ofxFANN::save(const string &file_name) {
+	return net.save(ofToDataPath(file_name));
+}
+
+//--------------------------------------------------------------------------------
+bool ofxFANN::create_from_file(const string &file_name) {
+	if (!ofFile::doesFileExist(file_name)) return false;
+	return net.create_from_file(ofToDataPath(file_name));
 }
 
 //--------------------------------------------------------------------------------

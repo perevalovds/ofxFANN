@@ -30,6 +30,9 @@ struct ofxFANN {
 	bool setup_fully_connected_network(int input_dim, int output_dim, string hidden_sizes);
 	bool setup_fully_connected_network(const vector<int> &layers_sizes);
 
+	bool save(const string &file_name);
+	bool create_from_file(const string &file_name);
+
 	//training with vectors of vectors of inputs and outputs
 	bool train(vector<vector<float> > &inputs, vector<vector<float> > &outputs, 
 		const ofxFANN_MLP_Train_Param &params = ofxFANN_MLP_Train_Param());
